@@ -1,0 +1,2729 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grand Horizon | Luxury Hotel</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --navy:#102536;
+    --navy2:#19394d;
+    --gold:#c9a46a;
+    --gold-dark:#a77b43;
+    --cream:#faf8f3;
+    --white:#fff;
+    --text:#26343c;
+    --muted:#7b858b;
+    --surface:#fff;
+    --shadow:0 12px 35px rgba(0,0,0,.09);
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html {
+    scroll-behavior:smooth;
+    scroll-padding-top:90px;
+}
+
+body {
+    font-family:'DM Sans',sans-serif;
+    color:var(--text);
+    background:var(--cream);
+    overflow-x:hidden;
+    transition:.3s;
+}
+
+h1,h2,h3 {
+    font-family:'Playfair Display',serif;
+}
+
+a {
+    text-decoration:none;
+    color:inherit;
+}
+
+button,input,select {
+    font-family:inherit;
+}
+
+button {
+    cursor:pointer;
+}
+
+.primary-btn {
+    display:inline-block;
+    background:linear-gradient(135deg,#d7b77f,#a77b43);
+    color:white;
+    border:none;
+    padding:15px 27px;
+    font-size:13px;
+    font-weight:700;
+    border-radius:30px;
+    transition:.3s;
+    box-shadow:0 8px 22px rgba(167,123,67,.25);
+}
+
+.primary-btn:hover {
+    transform:translateY(-3px);
+    box-shadow:0 12px 25px rgba(197,155,96,.35);
+}
+
+.primary-btn:disabled {
+    opacity:.6;
+    cursor:not-allowed;
+    transform:none;
+}
+
+.outline-btn {
+    display:inline-block;
+    border:1px solid white;
+    color:white;
+    padding:15px 27px;
+    font-size:13px;
+    font-weight:700;
+    border-radius:30px;
+    transition:.3s;
+}
+
+.outline-btn:hover {
+    background:white;
+    color:var(--navy);
+    transform:translateY(-3px);
+}
+
+/* NAVBAR */
+
+.navbar {
+    min-height:88px;
+    padding:0 8%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:var(--surface);
+    position:sticky;
+    top:0;
+    z-index:50;
+    box-shadow:0 5px 25px rgba(16,37,54,.07);
+}
+
+.logo {
+    font-family:'Playfair Display',serif;
+    font-size:29px;
+    font-weight:700;
+    color:var(--navy);
+    letter-spacing:1.5px;
+    white-space:nowrap;
+}
+
+.logo span {
+    color:var(--gold);
+}
+
+.nav-links {
+    display:flex;
+    gap:25px;
+    align-items:center;
+    font-size:14px;
+    font-weight:700;
+}
+
+.nav-links a {
+    transition:.3s;
+    position:relative;
+}
+
+.nav-links a:hover {
+    color:var(--gold-dark);
+}
+
+.admin-link {
+    color:var(--gold-dark)!important;
+    border:1px solid var(--gold);
+    padding:10px 16px;
+    border-radius:30px;
+}
+
+.admin-link:hover {
+    background:var(--gold);
+    color:white!important;
+}
+
+.theme-toggle {
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    border:1px solid #e5e5e5;
+    background:white;
+    color:var(--navy);
+    font-size:19px;
+    transition:.3s;
+}
+
+.theme-toggle:hover {
+    background:var(--gold);
+    color:white;
+}
+
+.menu-toggle {
+    display:none;
+    border:none;
+    background:transparent;
+    color:var(--navy);
+    font-size:27px;
+}
+
+/* HERO */
+
+.hero {
+    min-height:740px;
+    display:flex;
+    align-items:center;
+    padding:100px 10%;
+    color:white;
+    position:relative;
+    overflow:hidden;
+    background:
+        linear-gradient(110deg,rgba(5,19,31,.94),rgba(8,29,43,.72),rgba(8,25,38,.25)),
+        url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=2000&q=90')
+        center/cover no-repeat;
+    animation:heroZoom 20s ease-in-out infinite alternate;
+}
+
+.hero::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 20% 30%,rgba(197,155,96,.22),transparent 30%);
+    pointer-events:none;
+}
+
+.hero-content {
+    max-width:720px;
+    position:relative;
+    animation:heroEnter 1s ease both;
+}
+
+.eyebrow {
+    color:var(--gold);
+    font-size:13px;
+    letter-spacing:5px;
+    font-weight:800;
+    margin-bottom:20px;
+}
+
+.hero h1 {
+    font-size:clamp(48px,6.5vw,82px);
+    line-height:1.12;
+    margin-bottom:28px;
+}
+
+.hero p {
+    font-size:17px;
+    color:#e5ebef;
+    line-height:2;
+    max-width:570px;
+    margin-bottom:32px;
+}
+
+.hero-actions {
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+@keyframes heroEnter {
+    from {
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to {
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes heroZoom {
+    from {
+        background-size:auto,100% auto;
+    }
+    to {
+        background-size:auto,110% auto;
+    }
+}
+
+/* SEARCH */
+
+.booking-search {
+    width:88%;
+    max-width:1150px;
+    margin:-48px auto 0;
+    background:var(--surface);
+    padding:32px;
+    box-shadow:0 20px 60px rgba(16,37,54,.14);
+    position:relative;
+    z-index:5;
+    display:grid;
+    grid-template-columns:repeat(3,1fr) auto;
+    gap:24px;
+    align-items:end;
+    border-radius:15px;
+    border-top:3px solid var(--gold);
+}
+
+.booking-search label,
+.modal-box label {
+    display:block;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:9px;
+    color:var(--navy);
+}
+
+.booking-search input,
+.booking-search select {
+    width:100%;
+    min-height:50px;
+    padding:13px;
+    border:1px solid #e2e5e7;
+    background:white;
+    outline:none;
+    border-radius:8px;
+}
+
+.booking-search input:focus,
+.booking-search select:focus {
+    border-color:var(--gold);
+    box-shadow:0 0 0 3px rgba(197,155,96,.12);
+}
+
+/* SECTIONS */
+
+.section {
+    padding:105px 8%;
+}
+
+.section-heading {
+    text-align:center;
+    margin-bottom:55px;
+}
+
+.section-heading p {
+    color:var(--gold-dark);
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:4px;
+    margin-bottom:13px;
+}
+
+.section-heading h2 {
+    font-size:clamp(32px,4vw,46px);
+    color:var(--navy);
+    margin-bottom:13px;
+}
+
+.section-heading h2::after {
+    content:"";
+    display:block;
+    width:65px;
+    height:3px;
+    margin:13px auto 0;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+
+.section-heading span {
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* ROOMS */
+
+.rooms-section {
+    background:linear-gradient(135deg,#fbf9f4,#f1eee7);
+    margin-top:20px;
+}
+
+.filter-list {
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:35px;
+}
+
+.filter-btn {
+    padding:13px 23px;
+    border:1px solid #ddd;
+    background:white;
+    color:var(--navy);
+    font-size:13px;
+    font-weight:700;
+    border-radius:30px;
+    transition:.3s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background:var(--gold-dark);
+    color:white;
+    border-color:var(--gold-dark);
+}
+
+.room-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:32px;
+}
+
+.room-card {
+    background:white;
+    overflow:hidden;
+    border-radius:16px;
+    border:1px solid rgba(16,37,54,.06);
+    box-shadow:0 10px 35px rgba(16,37,54,.08);
+    transition:.35s;
+    animation:cardEnter .6s ease both;
+}
+
+.room-card:hover {
+    transform:translateY(-10px);
+    box-shadow:0 22px 45px rgba(16,37,54,.16);
+}
+
+@keyframes cardEnter {
+    from {
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to {
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.room-image {
+    height:260px;
+    background-size:cover;
+    background-position:center;
+    position:relative;
+}
+
+.room-tag {
+    position:absolute;
+    top:17px;
+    left:17px;
+    background:var(--gold);
+    color:white;
+    padding:9px 16px;
+    font-size:11px;
+    font-weight:800;
+    border-radius:30px;
+}
+
+.room-info {
+    padding:26px;
+}
+
+.room-info h3 {
+    color:var(--navy);
+    font-size:25px;
+    margin-bottom:10px;
+}
+
+.room-info p {
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.8;
+    min-height:44px;
+    margin-bottom:15px;
+}
+
+.room-details {
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    color:#66727a;
+    font-size:13px;
+    margin-bottom:18px;
+}
+
+.room-details span {
+    background:#f7f6f2;
+    padding:9px 12px;
+    border-radius:20px;
+}
+
+.room-bottom {
+    border-top:1px solid #eee;
+    padding-top:17px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.price {
+    font-size:22px;
+    font-weight:800;
+    color:var(--gold-dark);
+}
+
+.price small {
+    font-size:11px;
+    color:var(--muted);
+    font-weight:500;
+}
+
+.book-small {
+    border:none;
+    background:var(--navy);
+    color:white;
+    padding:13px 19px;
+    font-size:12px;
+    font-weight:700;
+    border-radius:25px;
+    transition:.3s;
+}
+
+.book-small:hover {
+    background:var(--gold);
+    transform:translateY(-2px);
+}
+
+.book-small:disabled {
+    background:#999;
+    cursor:not-allowed;
+}
+
+.empty-message {
+    text-align:center;
+    grid-column:1/-1;
+    padding:35px;
+    color:var(--muted);
+}
+
+/* ABOUT */
+
+.about {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:75px;
+    align-items:center;
+}
+
+.about-image {
+    min-height:490px;
+    background:url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1000&q=85') center/cover;
+    border-radius:18px;
+    box-shadow:20px 20px 0 rgba(197,155,96,.2);
+}
+
+.about-content h2 {
+    font-size:46px;
+    line-height:1.25;
+    color:var(--navy);
+    margin-bottom:22px;
+}
+
+.about-content p {
+    font-size:15px;
+    color:var(--muted);
+    line-height:2;
+    margin-bottom:20px;
+}
+
+/* FACILITIES */
+
+.experience {
+    background:linear-gradient(135deg,#102536,#19394d);
+    color:white;
+}
+
+.experience .section-heading h2 {
+    color:white;
+}
+
+.facility-grid {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+}
+
+.facility {
+    text-align:center;
+    padding:40px 22px;
+    border:1px solid #ffffff25;
+    border-radius:16px;
+    background:rgba(255,255,255,.06);
+    transition:.3s;
+}
+
+.facility:hover {
+    background:#ffffff12;
+    transform:translateY(-8px);
+    border-color:var(--gold);
+}
+
+.facility .symbol {
+    font-size:43px;
+    margin-bottom:18px;
+}
+
+.facility h3 {
+    font-size:22px;
+    margin-bottom:12px;
+}
+
+.facility p {
+    color:#c4d0d7;
+    font-size:13px;
+    line-height:1.9;
+}
+
+/* REVIEWS */
+
+.reviews {
+    background:linear-gradient(135deg,#f8f6f1,#eeeae1);
+}
+
+.review-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+}
+
+.review {
+    padding:35px;
+    background:white;
+    border-radius:15px;
+    border:1px solid #eee;
+    transition:.3s;
+}
+
+.review:hover {
+    transform:translateY(-7px);
+    box-shadow:var(--shadow);
+}
+
+.stars {
+    color:var(--gold);
+    margin-bottom:17px;
+    letter-spacing:3px;
+}
+
+.review p {
+    font-size:15px;
+    color:#68757d;
+    line-height:1.9;
+    margin-bottom:20px;
+}
+
+.review h3 {
+    font-size:20px;
+    color:var(--navy);
+}
+
+/* FOOTER */
+
+footer {
+    background:linear-gradient(135deg,#0b1c29,#142f40);
+    color:white;
+    padding:75px 8% 25px;
+}
+
+.footer-grid {
+    display:grid;
+    grid-template-columns:2fr 1fr 1.5fr;
+    gap:45px;
+    margin-bottom:45px;
+}
+
+footer h3 {
+    font-size:24px;
+    margin-bottom:20px;
+    color:white;
+}
+
+footer p,
+footer a {
+    color:#c1cbd1;
+    font-size:14px;
+    line-height:2;
+}
+
+footer p {
+    margin-bottom:8px;
+}
+
+footer a {
+    display:block;
+    transition:.3s;
+}
+
+footer a:hover {
+    color:var(--gold);
+    padding-left:5px;
+}
+
+.contact-item {
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-bottom:12px;
+}
+
+.contact-icon {
+    font-size:18px;
+    min-width:23px;
+}
+
+.contact-item a {
+    display:inline;
+    overflow-wrap:anywhere;
+}
+
+.map-link {
+    display:inline-block;
+    color:var(--gold)!important;
+    font-weight:700;
+    margin-top:5px;
+}
+
+.map-container {
+    width:100%;
+    height:250px;
+    border-radius:12px;
+    overflow:hidden;
+    margin-top:18px;
+    border:1px solid #ffffff25;
+}
+
+.map-container iframe {
+    width:100%;
+    height:100%;
+    border:0;
+}
+
+.copyright {
+    text-align:center;
+    border-top:1px solid #ffffff20;
+    padding-top:20px;
+    color:#aab5bc;
+    font-size:12px;
+}
+
+/* BOOKING SUCCESS POPUP */
+
+.booking-success-popup {
+    position:fixed;
+    top:25px;
+    right:25px;
+    width:min(420px,calc(100% - 30px));
+    padding:25px;
+    background:white;
+    border-radius:15px;
+    border-left:5px solid #239b56;
+    box-shadow:0 15px 45px rgba(0,0,0,.22);
+    z-index:200;
+    display:none;
+    animation:successEnter .45s ease both;
+}
+
+.booking-success-popup.show {
+    display:block;
+}
+
+.booking-success-popup h3 {
+    color:#18864b;
+    font-size:23px;
+    margin-bottom:10px;
+}
+
+.booking-success-popup p {
+    color:#52616a;
+    font-size:14px;
+    line-height:1.7;
+    margin-bottom:17px;
+    overflow-wrap:anywhere;
+}
+
+.booking-success-popup button {
+    background:#18864b;
+    color:white;
+    border:none;
+    padding:11px 25px;
+    border-radius:25px;
+    font-weight:700;
+    transition:.3s;
+}
+
+.booking-success-popup button:hover {
+    background:#116b3b;
+    transform:translateY(-2px);
+}
+
+@keyframes successEnter {
+    from {
+        opacity:0;
+        transform:translateY(-20px);
+    }
+    to {
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* BOOKING MODAL */
+
+.modal {
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:100;
+    background:rgba(0,0,0,.72);
+    justify-content:center;
+    align-items:center;
+    padding:15px;
+    backdrop-filter:blur(7px);
+}
+
+.modal-box {
+    width:100%;
+    max-width:520px;
+    max-height:92vh;
+    overflow-y:auto;
+    background:white;
+    padding:35px;
+    border-radius:18px;
+    box-shadow:0 20px 70px rgba(0,0,0,.3);
+    animation:appear .3s ease;
+}
+
+@keyframes appear {
+    from {
+        transform:translateY(20px) scale(.97);
+        opacity:0;
+    }
+    to {
+        transform:translateY(0) scale(1);
+        opacity:1;
+    }
+}
+
+.modal-box h2 {
+    color:var(--navy);
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.modal-subtitle {
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:20px;
+}
+
+.modal-box input,
+.modal-box select {
+    width:100%;
+    padding:15px;
+    border:1px solid #ddd;
+    outline:none;
+    margin-bottom:10px;
+    border-radius:8px;
+    font-size:14px;
+    background:white;
+    color:var(--text);
+}
+
+.modal-box input:focus,
+.modal-box select:focus {
+    border-color:var(--gold);
+}
+
+.hourly-time-fields {
+    display:none;
+    padding:15px;
+    margin:8px 0 12px;
+    background:var(--cream);
+    border-radius:8px;
+}
+
+.hourly-time-fields label {
+    margin-top:5px;
+}
+
+.hourly-summary {
+    background:#f8f6f1;
+    border:1px solid rgba(197,155,96,.3);
+    padding:14px;
+    border-radius:8px;
+    margin:10px 0;
+    color:var(--navy);
+    font-size:13px;
+    line-height:1.8;
+}
+
+.hourly-summary strong {
+    color:var(--gold-dark);
+}
+
+.modal-actions {
+    display:flex;
+    gap:10px;
+    margin-top:12px;
+}
+
+.modal-actions button {
+    flex:1;
+}
+
+.close-btn {
+    background:#68757d;
+    color:white;
+    border:none;
+    padding:13px;
+    border-radius:30px;
+}
+
+.close-btn:hover {
+    background:#46545d;
+}
+
+#bookingMessage {
+    margin-top:15px;
+    font-size:13px;
+    line-height:1.6;
+}
+
+/* SCROLL ANIMATION */
+
+.reveal {
+    opacity:0;
+    transform:translateY(35px);
+    transition:opacity .8s ease,transform .8s ease;
+}
+
+.reveal.visible {
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* DARK MODE */
+
+body.dark-theme {
+    background:#101d28;
+    color:#e9edf0;
+}
+
+body.dark-theme .navbar,
+body.dark-theme .booking-search,
+body.dark-theme .room-card,
+body.dark-theme .review,
+body.dark-theme .modal-box {
+    background:#192b3a;
+    color:#e9edf0;
+}
+
+body.dark-theme .logo,
+body.dark-theme .nav-links a,
+body.dark-theme .section-heading h2,
+body.dark-theme .room-info h3,
+body.dark-theme .about-content h2,
+body.dark-theme .modal-box h2,
+body.dark-theme .booking-search label,
+body.dark-theme .modal-box label {
+    color:#f4f1e9;
+}
+
+body.dark-theme .rooms-section,
+body.dark-theme .reviews {
+    background:#132331;
+}
+
+body.dark-theme .room-info p,
+body.dark-theme .review p,
+body.dark-theme .about-content p {
+    color:#b8c4cc;
+}
+
+body.dark-theme .room-details span {
+    background:#263b4c;
+    color:white;
+}
+
+body.dark-theme .booking-search input,
+body.dark-theme .booking-search select,
+body.dark-theme .modal-box input,
+body.dark-theme .modal-box select {
+    background:#263b4c;
+    color:white;
+    border-color:#435666;
+}
+
+body.dark-theme .filter-btn {
+    background:#263b4c;
+    color:white;
+    border-color:#435666;
+}
+
+body.dark-theme .filter-btn.active {
+    background:var(--gold);
+    border-color:var(--gold);
+}
+
+body.dark-theme .hourly-time-fields,
+body.dark-theme .hourly-summary {
+    background:#263b4c;
+    color:white;
+}
+
+body.dark-theme .theme-toggle {
+    background:#263b4c;
+    color:white;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px) {
+    .navbar {
+        padding:0 4%;
+    }
+
+    .nav-links {
+        gap:13px;
+        font-size:12px;
+    }
+
+    .logo {
+        font-size:23px;
+    }
+}
+
+@media(max-width:950px) {
+    .nav-links {
+        display:none;
+        position:absolute;
+        top:88px;
+        left:0;
+        width:100%;
+        background:white;
+        padding:25px;
+        flex-direction:column;
+        box-shadow:var(--shadow);
+    }
+
+    .nav-links.show {
+        display:flex;
+    }
+
+    .menu-toggle {
+        display:block;
+    }
+
+    .theme-toggle {
+        margin-left:auto;
+        margin-right:15px;
+    }
+
+    .room-grid {
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .facility-grid {
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .about {
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:650px) {
+    .navbar {
+        min-height:75px;
+        padding:0 5%;
+    }
+
+    .logo {
+        font-size:22px;
+    }
+
+    .navbar>.primary-btn {
+        display:none;
+    }
+
+    /* ORIGINAL HERO ZOOM ANIMATION RESTORED ON MOBILE */
+    .hero {
+        min-height:550px;
+        padding:65px 7%;
+        animation:heroZoom 20s ease-in-out infinite alternate;
+    }
+
+    .hero h1 {
+        font-size:43px;
+    }
+
+    .hero p {
+        font-size:14px;
+    }
+
+    .booking-search {
+        width:90%;
+        grid-template-columns:1fr;
+        margin-top:-25px;
+        padding:23px;
+    }
+
+    .section {
+        padding:65px 6%;
+    }
+
+    .section-heading h2,
+    .about-content h2 {
+        font-size:32px;
+    }
+
+    .room-grid,
+    .review-grid {
+        grid-template-columns:1fr;
+    }
+
+    .facility-grid {
+        grid-template-columns:1fr 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns:1fr;
+        gap:30px;
+    }
+
+    .room-image {
+        height:235px;
+    }
+
+    .about-image {
+        min-height:300px;
+    }
+
+    .modal-box {
+        padding:23px;
+    }
+
+    .modal-actions {
+        flex-direction:column;
+    }
+
+    .booking-success-popup {
+        top:15px;
+        right:15px;
+        width:calc(100% - 30px);
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    *,*::before,*::after {
+        animation-duration:.01ms!important;
+        transition-duration:.01ms!important;
+        scroll-behavior:auto!important;
+    }
+}
+
+/* =================================
+   GRAND HORIZON EXTRA ANIMATIONS
+================================= */
+
+/* PAGE LOAD */
+
+body {
+    animation: pageFadeIn 1s ease;
+}
+
+@keyframes pageFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* NAVBAR ANIMATION */
+
+.navbar {
+    animation: navbarSlideDown 0.8s ease both;
+}
+
+@keyframes navbarSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-35px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* HERO CONTENT */
+
+.hero-content {
+    animation: heroPremiumEnter 1.3s ease both;
+}
+
+@keyframes heroPremiumEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(55px);
+        filter: blur(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* HERO BUTTONS */
+
+.hero-actions .primary-btn,
+.hero-actions .outline-btn {
+    animation: buttonEntrance 1s ease both;
+}
+
+.hero-actions .outline-btn {
+    animation-delay: .2s;
+}
+
+@keyframes buttonEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ROOM CARDS */
+
+.room-card {
+    transition:
+        transform .45s cubic-bezier(.2,.8,.2,1),
+        box-shadow .45s ease;
+}
+
+.room-card:hover {
+    transform: translateY(-13px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(16,37,54,.20);
+}
+
+.room-image {
+    overflow: hidden;
+}
+
+.room-card .room-image {
+    transition: background-size .5s ease;
+}
+
+.room-card:hover .room-tag {
+    animation: tagPulse .7s ease;
+}
+
+@keyframes tagPulse {
+    0%,100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+/* ROOM BUTTON */
+
+.book-small {
+    transition: all .35s ease;
+}
+
+.book-small:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(16,37,54,.2);
+}
+
+/* SECTION HEADING */
+
+.section-heading h2 {
+    animation: headingReveal .9s ease both;
+}
+
+@keyframes headingReveal {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ABOUT IMAGE */
+
+.about-image {
+    transition: transform .6s ease, box-shadow .6s ease;
+}
+
+.about-image:hover {
+    transform: scale(1.025);
+    box-shadow: 25px 25px 0 rgba(197,155,96,.3);
+}
+
+/* FACILITIES */
+
+.facility {
+    transition: all .4s ease;
+}
+
+.facility:hover .symbol {
+    animation: iconFloat .7s ease infinite alternate;
+}
+
+@keyframes iconFloat {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-9px);
+    }
+}
+
+/* REVIEW CARDS */
+
+.review {
+    transition: transform .4s ease, box-shadow .4s ease;
+}
+
+.review:hover {
+    transform: translateY(-10px) scale(1.02);
+}
+
+/* BOOKING SUCCESS POPUP */
+
+.booking-success-popup.show {
+    animation: successBounce .65s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes successBounce {
+    0% {
+        opacity: 0;
+        transform: translateX(100px) scale(.85);
+    }
+    65% {
+        opacity: 1;
+        transform: translateX(-8px) scale(1.03);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+/* BUTTON ANIMATION */
+
+.primary-btn,
+.outline-btn,
+.filter-btn,
+.theme-toggle {
+    transition: all .3s ease;
+}
+
+.primary-btn:hover,
+.outline-btn:hover {
+    letter-spacing: .5px;
+}
+
+/* FILTER BUTTON */
+
+.filter-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(16,37,54,.12);
+}
+
+/* FOOTER */
+
+footer {
+    animation: footerReveal 1s ease both;
+}
+
+@keyframes footerReveal {
+    from {
+        opacity: .5;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* MOBILE ANIMATION SUPPORT */
+
+@media(max-width:650px) {
+    .room-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .hero-content {
+        animation-duration: 1s;
+    }
+}
+
+/* ACCESSIBILITY */
+
+@media(prefers-reduced-motion:reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+
+/* ==========================================
+   GRAND HORIZON - PREMIUM CLIENT UI
+========================================== */
+
+/* Smooth page appearance */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    animation: pageAppear 1s ease both;
+}
+
+@keyframes pageAppear {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Premium navbar */
+.navbar {
+    transition: all .4s ease;
+}
+
+.navbar a {
+    transition: color .3s ease;
+}
+
+.navbar a:hover {
+    color: #c59b60;
+}
+
+/* Hero animation */
+.hero-content {
+    animation: heroEntrance 1.2s ease both;
+}
+
+@keyframes heroEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(45px);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* Section headings */
+.section-heading {
+    animation: headingEntrance .8s ease both;
+}
+
+@keyframes headingEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================
+   PREMIUM ROOM CARDS
+========================================== */
+
+.room-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #fff;
+    transition:
+        transform .5s cubic-bezier(.2,.8,.2,1),
+        box-shadow .5s ease;
+    box-shadow: 0 8px 25px rgba(16,37,54,.08);
+}
+
+.room-card:hover {
+    transform: translateY(-14px);
+    box-shadow: 0 25px 55px rgba(16,37,54,.20);
+}
+
+/* Room image zoom */
+.room-card .room-image {
+    overflow: hidden;
+    transition: transform .6s ease;
+}
+
+.room-card:hover .room-image {
+    transform: scale(1.025);
+}
+
+/* Image overlay */
+.room-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(197,155,96,0);
+    border-radius: 18px;
+    pointer-events: none;
+    transition: border .4s ease;
+}
+
+.room-card:hover::after {
+    border-color: rgba(197,155,96,.8);
+}
+
+/* Room content */
+.room-card h3 {
+    transition: color .3s ease;
+}
+
+.room-card:hover h3 {
+    color: #b68a4e;
+}
+
+/* Room price */
+.room-card .price {
+    transition: transform .3s ease;
+}
+
+.room-card:hover .price {
+    transform: scale(1.06);
+}
+
+/* Room tag animation */
+.room-tag {
+    transition: all .35s ease;
+}
+
+.room-card:hover .room-tag {
+    transform: translateY(-3px);
+}
+
+/* ==========================================
+   BUTTON ANIMATIONS
+========================================== */
+
+.primary-btn,
+.outline-btn,
+.book-small {
+    position: relative;
+    overflow: hidden;
+    transition: all .35s ease;
+}
+
+.primary-btn:hover,
+.book-small:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(16,37,54,.2);
+}
+
+.outline-btn:hover {
+    transform: translateY(-4px);
+    background: #c59b60;
+    color: #fff;
+}
+
+/* ==========================================
+   FACILITY CARDS
+========================================== */
+
+.facility {
+    transition: all .4s ease;
+    border-radius: 16px;
+}
+
+.facility:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(16,37,54,.12);
+}
+
+.facility .symbol {
+    display: inline-block;
+    transition: transform .4s ease;
+}
+
+.facility:hover .symbol {
+    transform: scale(1.2) rotate(8deg);
+}
+
+/* ==========================================
+   REVIEW CARDS
+========================================== */
+
+.review {
+    transition: all .4s ease;
+    border-radius: 18px;
+}
+
+.review:hover {
+    transform: translateY(-9px);
+    box-shadow: 0 18px 40px rgba(16,37,54,.12);
+}
+
+/* ==========================================
+   FILTER BUTTONS
+========================================== */
+
+.filter-btn {
+    transition: all .3s ease;
+}
+
+.filter-btn:hover {
+    transform: translateY(-3px);
+}
+
+.filter-btn.active {
+    box-shadow: 0 6px 18px rgba(197,155,96,.25);
+}
+
+/* ==========================================
+   ABOUT IMAGE
+========================================== */
+
+.about-image {
+    transition: all .6s ease;
+}
+
+.about-image:hover {
+    transform: scale(1.025);
+}
+
+/* ==========================================
+   BOOKING MODAL
+========================================== */
+
+.modal,
+.booking-modal {
+    animation: modalAppear .4s ease both;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ==========================================
+   SCROLL REVEAL
+========================================== */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity .8s ease, transform .8s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================
+   MOBILE RESPONSIVE
+========================================== */
+
+@media (max-width: 650px) {
+    .room-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .facility:hover,
+    .review:hover {
+        transform: translateY(-4px);
+    }
+
+    .hero-content {
+        animation-duration: .8s;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- BOOKING SUCCESS POPUP -->
+
+<div class="booking-success-popup" id="bookingSuccessPopup"
+     role="status" aria-live="polite">
+
+    <h3>✓ Booking Successful!</h3>
+
+    <p id="bookingSuccessText">
+        Your room has been booked successfully.
+    </p>
+
+    <button type="button" onclick="closeSuccessPopup()">OK</button>
+
+</div>
+
+<!-- NAVBAR -->
+
+<header class="navbar">
+
+    <a href="#" class="logo">GRAND <span>HORIZON.</span></a>
+
+    <nav class="nav-links" id="navLinks">
+        <a href="#" onclick="closeMenu()">Home</a>
+        <a href="#rooms" onclick="closeMenu()">Our Rooms</a>
+        <a href="#about" onclick="closeMenu()">About Us</a>
+        <a href="#facilities" onclick="closeMenu()">Facilities</a>
+        <a href="#contact" onclick="closeMenu()">Contact</a>
+        <a href="/admin-login.html" class="admin-link">Admin Login</a>
+    </nav>
+
+    <a href="#rooms" class="primary-btn">BOOK YOUR STAY</a>
+
+    <button class="theme-toggle" id="themeToggle"
+            onclick="toggleTheme()" title="Change Theme">🌙</button>
+
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+    <div class="hero-content">
+
+        <p class="eyebrow">WELCOME TO GRAND HORIZON</p>
+
+        <h1>Luxury Living.<br>Unforgettable Moments.</h1>
+
+        <p>
+            Discover elegant rooms, thoughtful hospitality and
+            exceptional comfort. Your perfect stay begins here.
+        </p>
+
+        <div class="hero-actions">
+            <a href="#rooms" class="primary-btn">EXPLORE OUR ROOMS →</a>
+            <a href="#about" class="outline-btn">DISCOVER OUR HOTEL</a>
+        </div>
+
+    </div>
+</section>
+
+<!-- SEARCH -->
+
+<section class="booking-search">
+
+    <div>
+        <label>CHECK IN</label>
+        <input type="date" id="searchCheckIn">
+    </div>
+
+    <div>
+        <label>CHECK OUT</label>
+        <input type="date" id="searchCheckOut">
+    </div>
+
+    <div>
+        <label>GUESTS</label>
+        <select id="searchGuests">
+            <option value="1">1 Guest</option>
+            <option value="2" selected>2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4 Guests</option>
+            <option value="5">5 Guests</option>
+            <option value="6">6 Guests</option>
+        </select>
+    </div>
+
+    <button class="primary-btn" onclick="searchRooms()">CHECK ROOMS</button>
+
+</section>
+
+<!-- ROOMS -->
+
+<section class="section rooms-section" id="rooms">
+
+    <div class="section-heading">
+        <p>STAY IN COMFORT</p>
+        <h2>Explore Our Beautiful Rooms</h2>
+        <span>Choose the perfect room for your stay.</span>
+    </div>
+
+    <div class="filter-list">
+
+        <button class="filter-btn active" onclick="filterRooms('ALL',this)">All Rooms</button>
+
+        <button class="filter-btn" onclick="filterRooms('AC',this)">AC Rooms</button>
+
+        <button class="filter-btn" onclick="filterRooms('NON-AC',this)">Non-AC Rooms</button>
+
+        <button class="filter-btn" onclick="filterRooms('SUITE',this)">Luxury Suite</button>
+
+        <button class="filter-btn" onclick="filterRooms('HOURLY-AC',this)">Hourly AC</button>
+
+        <button class="filter-btn" onclick="filterRooms('HOURLY-NON-AC',this)">Hourly Non-AC</button>
+
+    </div>
+
+    <div class="room-grid" id="roomGrid">
+        <p class="empty-message">Loading rooms...</p>
+    </div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section class="section about" id="about">
+
+    <div class="about-image reveal"></div>
+
+    <div class="about-content reveal">
+
+        <p class="eyebrow">ABOUT GRAND HORIZON</p>
+
+        <h2>A Place Where Luxury Meets Comfort</h2>
+
+        <p>
+            Welcome to Grand Horizon, where comfort and elegance
+            come together to create a memorable hotel experience.
+        </p>
+
+        <p>
+            From relaxing rooms to modern facilities, we focus
+            on making every guest feel welcome and comfortable.
+        </p>
+
+        <a href="#rooms" class="primary-btn">EXPLORE ROOMS</a>
+
+    </div>
+
+</section>
+
+<!-- FACILITIES -->
+
+<section class="section experience" id="facilities">
+
+    <div class="section-heading">
+        <p>OUR SERVICES</p>
+        <h2>Experience More With Us</h2>
+        <span>Everything you need for a relaxing stay.</span>
+    </div>
+
+    <div class="facility-grid">
+
+        <div class="facility reveal">
+            <div class="symbol">🏊</div>
+            <h3>Swimming Pool</h3>
+            <p>Relax and refresh in our swimming pool.</p>
+        </div>
+
+        <div class="facility reveal">
+            <div class="symbol">🍽️</div>
+            <h3>Restaurant</h3>
+            <p>Enjoy delicious food and dining experiences.</p>
+        </div>
+
+        <div class="facility reveal">
+            <div class="symbol">📶</div>
+            <h3>Free Wi-Fi</h3>
+            <p>Stay connected during your visit.</p>
+        </div>
+
+        <div class="facility reveal">
+            <div class="symbol">🚗</div>
+            <h3>Parking</h3>
+            <p>Convenient parking for our guests.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- REVIEWS -->
+
+<section class="section reviews">
+
+    <div class="section-heading">
+        <p>GUEST EXPERIENCES</p>
+        <h2>What Our Guests Say</h2>
+        <span>Comfort and hospitality are at the heart of our service.</span>
+    </div>
+
+    <div class="review-grid">
+
+        <div class="review reveal">
+            <div class="stars">★★★★★</div>
+            <p>"Beautiful rooms and a very comfortable stay. The experience was wonderful."</p>
+            <h3>Happy Guest</h3>
+        </div>
+
+        <div class="review reveal">
+            <div class="stars">★★★★★</div>
+            <p>"Clean rooms, peaceful atmosphere and helpful service."</p>
+            <h3>Our Guest</h3>
+        </div>
+
+        <div class="review reveal">
+            <div class="stars">★★★★★</div>
+            <p>"A lovely place to relax. Would definitely visit again."</p>
+            <h3>Valued Guest</h3>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer id="contact">
+
+    <div class="footer-grid">
+
+        <div>
+            <h3>GRAND HORIZON.</h3>
+
+            <p>
+                Experience comfort, elegance and exceptional
+                hospitality. We look forward to welcoming you.
+            </p>
+        </div>
+
+        <div>
+            <h3>Quick Links</h3>
+
+            <a href="#">Home</a>
+            <a href="#rooms">Our Rooms</a>
+            <a href="#about">About Us</a>
+            <a href="#facilities">Facilities</a>
+            <a href="/admin-login.html">Admin Login</a>
+        </div>
+
+        <div>
+            <h3>Contact Us</h3>
+
+            <div class="contact-item">
+                <span class="contact-icon">📍</span>
+                <p>Grand Horizon Hotel,<br>Pune, Maharashtra, India.</p>
+            </div>
+
+            <div class="contact-item">
+                <span class="contact-icon">📞</span>
+                <p><a href="tel:+919373274959">+91 93732 74959</a></p>
+            </div>
+
+            <div class="contact-item">
+                <span class="contact-icon">✉️</span>
+                <p><a href="mailto:info@grandhorizon.com">info@grandhorizon.com</a></p>
+            </div>
+
+            <div class="contact-item">
+                <span class="contact-icon">🗺️</span>
+                <p>
+                    <a class="map-link"
+                       href="https://www.google.com/maps/search/?api=1&query=Grand+Horizon+Hotel+Pune"
+                       target="_blank" rel="noopener">
+                        View Hotel Location →
+                    </a>
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="map-container">
+        <iframe
+            src="https://maps.google.com/maps?q=Grand%20Horizon%20Hotel%20Pune&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            loading="lazy"
+            title="Grand Horizon Hotel Location">
+        </iframe>
+    </div>
+
+    <div class="copyright">
+        © 2026 Grand Horizon Hotel. All Rights Reserved.
+    </div>
+
+</footer>
+
+<!-- BOOKING MODAL -->
+
+<div class="modal" id="bookingModal">
+
+    <div class="modal-box">
+
+        <h2>Reserve Your Room</h2>
+
+        <p class="modal-subtitle">
+            Enter your details to request a booking.
+        </p>
+
+        <form id="bookingForm">
+
+            <input type="hidden" id="selectedRoomId">
+
+            <label>Full Name</label>
+            <input type="text" id="customerName"
+                   placeholder="Enter your full name" required>
+
+            <label>Email Address</label>
+            <input type="email" id="customerEmail"
+                   placeholder="Enter your email" required>
+
+            <label>Mobile Number</label>
+            <input type="tel" id="customerMobile"
+                   placeholder="Enter 10 digit mobile number"
+                   inputmode="numeric" maxlength="10"
+                   pattern="[0-9]{10}" required>
+
+            <label>Check-in Date</label>
+            <input type="date" id="checkInDate" required>
+
+            <div id="checkoutDateGroup">
+                <label>Check-out Date</label>
+                <input type="date" id="checkOutDate" required>
+            </div>
+
+            <div class="hourly-time-fields" id="hourlyTimeFields">
+
+                <label>Check-in Time</label>
+                <input type="time" id="checkInTime">
+
+                <label>Booking Duration</label>
+                <select id="bookingDuration">
+                    <option value="1">1 Hour</option>
+                    <option value="2">2 Hours</option>
+                    <option value="3">3 Hours</option>
+                    <option value="4">4 Hours</option>
+                </select>
+
+                <label>Automatic Check-out Time</label>
+                <input type="time" id="checkOutTime" readonly>
+
+                <div class="hourly-summary" id="hourlySummary">
+                    Select check-in time and duration.
+                </div>
+
+            </div>
+
+            <div class="modal-actions">
+
+                <button type="submit" class="primary-btn">
+                    CONFIRM BOOKING
+                </button>
+
+                <button type="button" class="close-btn"
+                        onclick="closeBooking()">
+                    CLOSE
+                </button>
+
+            </div>
+
+        </form>
+
+        <p id="bookingMessage" aria-live="polite"></p>
+
+    </div>
+
+</div>
+
+<script>
+
+const API = "/api";
+
+let allRooms = [];
+let currentFilter = "ALL";
+let selectedRoom = null;
+let successPopupTimer = null;
+
+/* DATE HELPERS */
+
+function getTodayString() {
+    const today = new Date();
+
+    return [
+        today.getFullYear(),
+        String(today.getMonth() + 1).padStart(2, "0"),
+        String(today.getDate()).padStart(2, "0")
+    ].join("-");
+}
+
+/* NAVIGATION */
+
+function toggleMenu() {
+    document.getElementById("navLinks").classList.toggle("show");
+}
+
+function closeMenu() {
+    document.getElementById("navLinks").classList.remove("show");
+}
+
+/* DARK MODE */
+
+function toggleTheme() {
+    document.body.classList.toggle("dark-theme");
+
+    document.getElementById("themeToggle").textContent =
+        document.body.classList.contains("dark-theme") ? "☀️" : "🌙";
+}
+
+/* CLOSE BOOKING */
+
+function closeBooking() {
+    document.getElementById("bookingModal").style.display = "none";
+}
+
+/* BOOKING SUCCESS POPUP */
+
+function showBookingSuccess(bookingId) {
+    const popup = document.getElementById("bookingSuccessPopup");
+    const text = document.getElementById("bookingSuccessText");
+
+    text.textContent =
+        "Your room has been booked successfully! Booking ID: " +
+        bookingId +
+        ". Thank you for choosing Grand Horizon.";
+
+    popup.classList.add("show");
+
+    clearTimeout(successPopupTimer);
+
+    successPopupTimer = setTimeout(function() {
+        closeSuccessPopup();
+    }, 8000);
+}
+
+function closeSuccessPopup() {
+    document.getElementById("bookingSuccessPopup").classList.remove("show");
+
+    clearTimeout(successPopupTimer);
+    successPopupTimer = null;
+}
+
+/* ROOM TYPE */
+
+function isHourlyRoom(room) {
+    const priceType = String(room.priceType || "").toUpperCase();
+    const roomType = String(room.roomType || "").toUpperCase();
+
+    return priceType.includes("HOUR") || roomType.includes("HOURLY");
+}
+
+function getRoomCategory(room) {
+    const type = String(room.roomType || "").toUpperCase();
+    const hourly = isHourlyRoom(room);
+
+    const nonAC =
+        type.includes("NON-AC") ||
+        type.includes("NON AC") ||
+        type.includes("NONAC");
+
+    if (hourly && nonAC) return "HOURLY-NON-AC";
+    if (hourly) return "HOURLY-AC";
+    if (type.includes("SUITE")) return "SUITE";
+    if (nonAC) return "NON-AC";
+    if (type.includes("AC")) return "AC";
+
+    return "OTHER";
+}
+
+/* ROOM IMAGES */
+
+const roomImages = [
+    "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=900&q=85",
+    "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=900&q=85",
+    "https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=900&q=85",
+    "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=900&q=85",
+    "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=900&q=85",
+    "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=900&q=85"
+];
+
+function getRoomImage(room,index) {
+    const type = String(room.roomType || "").toUpperCase();
+
+    if (room.imageUrl && room.imageUrl.trim() !== "") {
+        return room.imageUrl;
+    }
+
+    if (type.includes("SUITE")) return roomImages[4];
+    if (type.includes("FAMILY")) return roomImages[5];
+    if (type.includes("PREMIUM")) return roomImages[2];
+    if (type.includes("DELUXE") || type.includes("AC")) return roomImages[0];
+    if (type.includes("ECONOMY") || type.includes("NON-AC") || type.includes("NON AC")) return roomImages[1];
+
+    return roomImages[index % roomImages.length];
+}
+
+/* ROOM PRICE */
+
+function formatPrice(room) {
+    let price = Number(room.pricePerNight || 0);
+    const type = String(room.roomType || "").toUpperCase();
+    const hourly = isHourlyRoom(room);
+
+    if (price <= 0) {
+        if (type.includes("SUITE")) price = 5000;
+        else if (type.includes("FAMILY")) price = 4000;
+        else if (type.includes("PREMIUM")) price = 3500;
+        else if (type.includes("DELUXE")) price = 2500;
+        else if (type.includes("ECONOMY")) price = 1200;
+        else if (type.includes("NON-AC") || type.includes("NON AC")) price = 1500;
+        else if (type.includes("AC")) price = 2500;
+        else price = 1500;
+
+        if (hourly) price = 300;
+    }
+
+    const formatted = price.toLocaleString("en-IN");
+
+    return hourly
+        ? `₹${formatted} <small>/ hour</small>`
+        : `₹${formatted} <small>/ night</small>`;
+}
+
+/* LOAD ROOMS */
+
+async function loadRooms() {
+    const grid = document.getElementById("roomGrid");
+
+    try {
+        const response = await fetch(`${API}/rooms`);
+
+        if (!response.ok) {
+            throw new Error("Unable to load rooms. HTTP " + response.status);
+        }
+
+        const data = await response.json();
+
+        allRooms = Array.isArray(data) ? data : [];
+
+        applyCurrentFilter();
+
+    } catch (error) {
+        console.error(error);
+
+        grid.innerHTML =
+            '<p class="empty-message">Unable to load rooms. Please check whether Spring Boot is running.</p>';
+    }
+}
+
+/* DISPLAY ROOMS */
+
+function displayRooms(rooms) {
+    const grid = document.getElementById("roomGrid");
+
+    grid.innerHTML = "";
+
+    if (!rooms || rooms.length === 0) {
+        grid.innerHTML =
+            '<p class="empty-message">No rooms available in this category.</p>';
+        return;
+    }
+
+    rooms.forEach((room,index) => {
+        const card = document.createElement("article");
+        card.className = "room-card";
+        card.style.animationDelay = `${index * 0.12}s`;
+
+        const image = document.createElement("div");
+        image.className = "room-image";
+        image.style.backgroundImage = `url("${getRoomImage(room,index)}")`;
+
+        const tag = document.createElement("span");
+        tag.className = "room-tag";
+        tag.textContent = getRoomCategory(room);
+
+        image.appendChild(tag);
+
+        const info = document.createElement("div");
+        info.className = "room-info";
+
+        const title = document.createElement("h3");
+        title.textContent = room.roomType || "Hotel Room";
+
+        const description = document.createElement("p");
+        description.textContent =
+            room.description ||
+            `Room ${room.roomNumber || ""} · Comfortable accommodation for your stay.`;
+
+        const details = document.createElement("div");
+        details.className = "room-details";
+
+        const roomNo = document.createElement("span");
+        roomNo.textContent = `Room: ${room.roomNumber || "N/A"}`;
+
+        const capacity = document.createElement("span");
+        capacity.textContent = `👤 ${room.capacity || 1} Guests`;
+
+        details.append(roomNo,capacity);
+
+        const bottom = document.createElement("div");
+        bottom.className = "room-bottom";
+
+        const price = document.createElement("span");
+        price.className = "price";
+        price.innerHTML = formatPrice(room);
+
+        const button = document.createElement("button");
+        button.className = "book-small";
+        button.textContent = room.available ? "BOOK NOW →" : "UNAVAILABLE";
+        button.disabled = !room.available;
+
+        button.addEventListener("click",() => openBooking(room.id));
+
+        bottom.append(price,button);
+        info.append(title,description,details,bottom);
+        card.append(image,info);
+
+        grid.appendChild(card);
+    });
+}
+
+/* FILTER ROOMS */
+
+function filterRooms(category,button) {
+    currentFilter = category;
+
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    if (button) button.classList.add("active");
+
+    applyCurrentFilter();
+}
+
+function applyCurrentFilter() {
+    if (currentFilter === "ALL") {
+        displayRooms(allRooms);
+        return;
+    }
+
+    const filtered = allRooms.filter(room =>
+        getRoomCategory(room) === currentFilter
+    );
+
+    displayRooms(filtered);
+}
+
+/* SEARCH ROOMS */
+
+function searchRooms() {
+    const checkIn = document.getElementById("searchCheckIn").value;
+    const checkOut = document.getElementById("searchCheckOut").value;
+    const guests = Number(document.getElementById("searchGuests").value);
+
+    if (!checkIn || !checkOut) {
+        alert("Please select check-in and check-out dates.");
+        return;
+    }
+
+    if (checkIn < getTodayString()) {
+        alert("Check-in date cannot be in the past.");
+        return;
+    }
+
+    if (checkOut <= checkIn) {
+        alert("Check-out date must be after check-in date.");
+        return;
+    }
+
+    const matchingRooms = allRooms.filter(room =>
+        room.available && Number(room.capacity || 1) >= guests
+    );
+
+    currentFilter = "ALL";
+
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    document.querySelector('.filter-btn[onclick*="ALL"]').classList.add("active");
+
+    displayRooms(matchingRooms);
+
+    document.getElementById("rooms").scrollIntoView({
+        behavior:"smooth"
+    });
+}
+
+/* OPEN BOOKING */
+
+function openBooking(roomId) {
+    const room = allRooms.find(r => Number(r.id) === Number(roomId));
+
+    if (!room || !room.available) {
+        alert("This room is not available.");
+        return;
+    }
+
+    selectedRoom = room;
+
+    document.getElementById("selectedRoomId").value = roomId;
+
+    const todayString = getTodayString();
+
+    const checkInDate = document.getElementById("checkInDate");
+    const checkOutDate = document.getElementById("checkOutDate");
+
+    const searchCheckIn = document.getElementById("searchCheckIn").value;
+    const searchCheckOut = document.getElementById("searchCheckOut").value;
+
+    checkInDate.value = searchCheckIn || todayString;
+    checkInDate.min = todayString;
+
+    checkOutDate.value = searchCheckOut || "";
+    checkOutDate.min = checkInDate.value;
+
+    const hourly = isHourlyRoom(room);
+
+    const timeFields = document.getElementById("hourlyTimeFields");
+    const checkoutGroup = document.getElementById("checkoutDateGroup");
+
+    const checkInTime = document.getElementById("checkInTime");
+    const checkOutTime = document.getElementById("checkOutTime");
+    const duration = document.getElementById("bookingDuration");
+
+    if (hourly) {
+        timeFields.style.display = "block";
+        checkoutGroup.style.display = "none";
+
+        checkOutDate.required = false;
+
+        checkInTime.required = true;
+        checkInTime.value = "";
+        checkOutTime.value = "";
+
+        duration.value = "1";
+
+        document.getElementById("hourlySummary").textContent =
+            "Select check-in time and duration.";
+
+    } else {
+        timeFields.style.display = "none";
+        checkoutGroup.style.display = "block";
+
+        checkOutDate.required = true;
+
+        checkInTime.required = false;
+        checkInTime.value = "";
+        checkOutTime.value = "";
+    }
+
+    document.getElementById("bookingMessage").textContent = "";
+    document.getElementById("bookingMessage").style.color = "";
+
+    document.getElementById("bookingModal").style.display = "flex";
+}
+
+/* HOURLY CHECKOUT CALCULATION */
+
+function updateHourlyCheckoutTime() {
+    const checkInTime = document.getElementById("checkInTime").value;
+    const duration = Number(document.getElementById("bookingDuration").value);
+
+    const checkOutTime = document.getElementById("checkOutTime");
+    const summary = document.getElementById("hourlySummary");
+
+    if (!checkInTime) {
+        checkOutTime.value = "";
+        summary.textContent = "Select check-in time and duration.";
+        return;
+    }
+
+    const parts = checkInTime.split(":");
+    const startMinutes = Number(parts[0]) * 60 + Number(parts[1]);
+    const endMinutes = startMinutes + duration * 60;
+
+    if (endMinutes >= 24 * 60) {
+        checkOutTime.value = "";
+        summary.textContent =
+            "Please select an earlier check-in time. Checkout cannot cross midnight.";
+        return;
+    }
+
+    const hours = Math.floor(endMinutes / 60);
+    const minutes = endMinutes % 60;
+
+    const calculatedTime =
+        String(hours).padStart(2,"0") + ":" +
+        String(minutes).padStart(2,"0");
+
+    checkOutTime.value = calculatedTime;
+
+    summary.innerHTML =
+        "<strong>Booking Summary</strong><br>" +
+        "Check-in: " + checkInTime +
+        "<br>Duration: " + duration + " hour(s)" +
+        "<br>Check-out: " + calculatedTime;
+}
+
+document.getElementById("checkInTime")
+    .addEventListener("change",updateHourlyCheckoutTime);
+
+document.getElementById("bookingDuration")
+    .addEventListener("change",updateHourlyCheckoutTime);
+
+/* BOOKING SUBMISSION */
+
+document.getElementById("bookingForm").addEventListener("submit",async function(event) {
+    event.preventDefault();
+
+    if (!selectedRoom) {
+        alert("Please select a room first.");
+        return;
+    }
+
+    const checkIn = document.getElementById("checkInDate").value;
+    const hourly = isHourlyRoom(selectedRoom);
+
+    let checkOut = document.getElementById("checkOutDate").value;
+
+    const checkInTime = document.getElementById("checkInTime").value;
+    const checkOutTime = document.getElementById("checkOutTime").value;
+
+    if (!checkIn) {
+        alert("Please select check-in date.");
+        return;
+    }
+
+    if (checkIn < getTodayString()) {
+        alert("Check-in date cannot be in the past.");
+        return;
+    }
+
+    if (hourly) {
+        checkOut = checkIn;
+
+        if (!checkInTime || !checkOutTime) {
+            alert("Please select a valid check-in time and duration.");
+            return;
+        }
+
+        if (checkOutTime <= checkInTime) {
+            alert("Invalid checkout time.");
+            return;
+        }
+
+        if (checkIn === getTodayString()) {
+            const now = new Date();
+            const currentTime =
+                String(now.getHours()).padStart(2,"0") + ":" +
+                String(now.getMinutes()).padStart(2,"0");
+
+            if (checkInTime <= currentTime) {
+                alert("Please select a future check-in time.");
+                return;
+            }
+        }
+
+    } else {
+        if (!checkOut || checkOut <= checkIn) {
+            alert("Check-out date must be after check-in date.");
+            return;
+        }
+    }
+
+    const mobile = document.getElementById("customerMobile").value.trim();
+
+    if (!/^[0-9]{10}$/.test(mobile)) {
+        alert("Mobile number must contain exactly 10 digits.");
+        return;
+    }
+
+    const booking = {
+        customerName:document.getElementById("customerName").value.trim(),
+        customerEmail:document.getElementById("customerEmail").value.trim(),
+        customerMobile:mobile,
+        checkInDate:checkIn,
+        checkOutDate:checkOut,
+        room:{
+            id:Number(document.getElementById("selectedRoomId").value)
+        }
+    };
+
+    if (hourly) {
+        booking.checkInTime = checkInTime;
+        booking.checkOutTime = checkOutTime;
+    }
+
+    const message = document.getElementById("bookingMessage");
+    const submitButton = this.querySelector('button[type="submit"]');
+
+    submitButton.disabled = true;
+    submitButton.textContent = "PROCESSING...";
+
+    try {
+        const response = await fetch(`${API}/bookings`,{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(booking)
+        });
+
+        const responseText = await response.text();
+
+        let result = {};
+
+        try {
+            result = responseText ? JSON.parse(responseText) : {};
+        } catch {
+            result = {message:responseText};
+        }
+
+        if (!response.ok) {
+            throw new Error(
+                result.message ||
+                result.error ||
+                responseText ||
+                "Booking failed. Please try again."
+            );
+        }
+
+        /* BOOKING SUCCESS */
+
+        const bookingId =
+            result.id || result.bookingId || "Confirmed";
+
+        /* Close booking form */
+        closeBooking();
+
+        /* Reset form */
+        this.reset();
+
+        /* Clear selected room */
+        selectedRoom = null;
+
+        /* Show success popup on the same home page */
+        showBookingSuccess(bookingId);
+
+        /* Refresh room list */
+        await loadRooms();
+
+    } catch(error) {
+        message.style.color = "#d93025";
+        message.textContent = error.message;
+
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "CONFIRM BOOKING";
+    }
+});
+
+/* DATE VALIDATION */
+
+const todayString = getTodayString();
+
+[
+    "searchCheckIn",
+    "searchCheckOut",
+    "checkInDate",
+    "checkOutDate"
+].forEach(id => {
+    document.getElementById(id).min = todayString;
+});
+
+document.getElementById("searchCheckIn").addEventListener("change",function() {
+    document.getElementById("searchCheckOut").min =
+        this.value || todayString;
+});
+
+document.getElementById("checkInDate").addEventListener("change",function() {
+    document.getElementById("checkOutDate").min =
+        this.value || todayString;
+});
+
+/* CLOSE MODAL */
+
+document.getElementById("bookingModal").addEventListener("click",function(event) {
+    if (event.target === this) {
+        closeBooking();
+    }
+});
+
+document.addEventListener("keydown",function(event) {
+    if (event.key === "Escape") {
+        closeBooking();
+    }
+});
+
+/* SCROLL ANIMATION */
+
+const revealElements = document.querySelectorAll(
+    ".section-heading,.about-image,.about-content,.facility,.review"
+);
+
+revealElements.forEach(element => {
+    element.classList.add("reveal");
+});
+
+if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+            }
+        });
+    },{
+        threshold:0.12,
+        rootMargin:"0px 0px -40px 0px"
+    });
+
+    revealElements.forEach(element => observer.observe(element));
+
+} else {
+    revealElements.forEach(element => element.classList.add("visible"));
+}
+
+/* START APPLICATION */
+
+loadRooms();
+
+</script>
+
+</body>
+</html>

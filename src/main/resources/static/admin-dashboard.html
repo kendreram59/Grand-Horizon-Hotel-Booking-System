@@ -1,0 +1,2064 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grand Horizon | Admin Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --navy: #101d35;
+    --navy-light: #192d4b;
+    --gold: #c9a66d;
+    --gold-light: #e5c994;
+    --bg: #f3f5f9;
+    --white: #ffffff;
+    --text: #17243a;
+    --muted: #8290a5;
+    --border: #e8ebf1;
+    --green: #16845b;
+    --red: #d94b58;
+    --blue: #347bc5;
+    --purple: #7956c8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'DM Sans', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
+body {
+    background:
+        radial-gradient(circle at 85% 10%, rgba(201,166,109,.09), transparent 25%),
+        var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 255px;
+    height: 100vh;
+    background: linear-gradient(180deg, #101d35, #172c49 65%, #0c192b);
+    color: white;
+    padding: 27px 17px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 8px 0 30px rgba(16,29,53,.12);
+}
+
+.brand {
+    text-align: center;
+    padding: 4px 5px 28px;
+    border-bottom: 1px solid rgba(255,255,255,.12);
+}
+
+.brand h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold-light);
+    letter-spacing: 2px;
+    font-size: 21px;
+}
+
+.brand p {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #aab5c4;
+    margin-top: 7px;
+}
+
+.sidebar-label {
+    color: #8291a8;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 27px 13px 12px;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #c2ccda;
+    padding: 13px 14px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: .25s;
+}
+
+.nav-links a span {
+    font-size: 18px;
+    width: 23px;
+    text-align: center;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: white;
+    background: linear-gradient(100deg, rgba(201,166,109,.27), rgba(201,166,109,.08));
+    border-left: 3px solid var(--gold);
+    padding-left: 11px;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding: 17px 12px;
+    border-top: 1px solid rgba(255,255,255,.12);
+}
+
+.sidebar-bottom p {
+    font-size: 11px;
+    color: #aab5c4;
+    line-height: 1.7;
+}
+
+/* MAIN */
+
+.main {
+    margin-left: 255px;
+    min-height: 100vh;
+}
+
+header {
+    height: 82px;
+    background: rgba(255,255,255,.93);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 34px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.header-title h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--navy);
+}
+
+.header-title p {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-avatar {
+    width: 39px;
+    height: 39px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--navy);
+    background: linear-gradient(135deg, #f1dfb8, #c49a58);
+    font-weight: 800;
+}
+
+#adminName {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--navy);
+}
+
+.admin-role {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 3px;
+}
+
+.logout-btn {
+    background: #fff0f0;
+    color: #c43c49;
+    border: 1px solid #f5d6d9;
+    padding: 10px 17px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 12px;
+    transition: .25s;
+}
+
+.logout-btn:hover {
+    background: #d94b58;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.container {
+    max-width: 1600px;
+    margin: auto;
+    padding: 30px 34px 55px;
+}
+
+/* WELCOME BANNER */
+
+.welcome-banner {
+    background:
+        linear-gradient(100deg, rgba(12,27,49,.97), rgba(28,54,82,.9)),
+        url("https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1500&q=80");
+    background-size: cover;
+    background-position: center;
+    border-radius: 16px;
+    padding: 30px 34px;
+    color: white;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(16,29,53,.15);
+    animation: slideUp .65s ease both;
+}
+
+.welcome-banner::after {
+    content: "✦";
+    position: absolute;
+    right: 55px;
+    top: -35px;
+    font-size: 180px;
+    color: rgba(218,185,126,.12);
+    animation: slowFloat 6s ease-in-out infinite alternate;
+}
+
+.welcome-banner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 29px;
+    margin-bottom: 9px;
+    position: relative;
+    z-index: 1;
+}
+
+.welcome-banner p {
+    color: #c7d0dc;
+    font-size: 13px;
+    position: relative;
+    z-index: 1;
+}
+
+.welcome-tag {
+    display: inline-block;
+    color: var(--gold-light);
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+/* STAT CARDS */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 18px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 13px;
+    box-shadow: 0 4px 18px rgba(26,43,70,.045);
+    border: 1px solid #edf0f5;
+    position: relative;
+    overflow: hidden;
+    transition: .3s;
+    animation: slideUp .65s ease both;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 13px 30px rgba(26,43,70,.10);
+}
+
+.card::after {
+    content: "";
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    position: absolute;
+    right: -30px;
+    top: -30px;
+    background: var(--card-glow, rgba(201,166,109,.12));
+}
+
+.card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.card h3 {
+    color: #78869a;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.card-icon {
+    width: 43px;
+    height: 43px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    font-size: 20px;
+    background: var(--icon-bg);
+    color: var(--icon-color);
+}
+
+.card h1 {
+    color: var(--navy);
+    font-size: 31px;
+    font-weight: 800;
+}
+
+.card-note {
+    color: #99a3b1;
+    font-size: 10px;
+    margin-top: 7px;
+}
+
+/* SECTIONS */
+
+.section {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    margin-bottom: 28px;
+    box-shadow: 0 4px 18px rgba(26,43,70,.045);
+    border: 1px solid #edf0f5;
+    animation: slideUp .7s ease both;
+    overflow: hidden;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.section-heading h2 {
+    color: var(--navy);
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+}
+
+.section-heading p {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 5px;
+}
+
+.primary-btn {
+    background: linear-gradient(110deg, #b48a4c, #d8b77d);
+    color: #17243a;
+    border: none;
+    padding: 12px 19px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 12px;
+    transition: .25s;
+    box-shadow: 0 5px 13px rgba(190,150,85,.18);
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(190,150,85,.3);
+}
+
+/* TABLES */
+
+.table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 850px;
+}
+
+th, td {
+    padding: 14px 13px;
+    border-bottom: 1px solid #edf0f4;
+    text-align: left;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+th {
+    background: #f5f7fa;
+    color: #5d6b80;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+    font-weight: 800;
+}
+
+td {
+    color: #46546a;
+}
+
+tbody tr {
+    transition: .2s;
+}
+
+tbody tr:hover {
+    background: #faf9f6;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+td img {
+    width: 65px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+}
+
+.action-btn {
+    border: none;
+    padding: 8px 11px;
+    border-radius: 6px;
+    color: white;
+    margin: 2px;
+    font-size: 10px;
+    font-weight: 700;
+    transition: .2s;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(.92);
+}
+
+.edit-btn { background: #347bc5; }
+.delete-btn, .cancel-btn { background: #d94b58; }
+.confirm-btn { background: #16845b; }
+
+.status {
+    font-weight: 800;
+}
+
+/* FILTER PANEL */
+
+.filter-panel {
+    background: linear-gradient(120deg, #f8f9fc, #fffdf9);
+    border: 1px solid #e9edf3;
+    border-radius: 11px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.filter-title {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 15px;
+}
+
+.filter-row {
+    display: flex;
+    align-items: end;
+    flex-wrap: wrap;
+    gap: 13px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 180px;
+    flex: 1;
+}
+
+.filter-group label {
+    font-weight: 700;
+    font-size: 11px;
+    color: #5d6b80;
+}
+
+.filter-group input,
+.filter-group select {
+    padding: 11px;
+    border: 1px solid #dce2ea;
+    border-radius: 7px;
+    background: white;
+    font-size: 12px;
+    outline: none;
+    color: var(--text);
+    min-height: 41px;
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,166,109,.12);
+}
+
+.filter-btn {
+    padding: 12px 16px;
+    border: none;
+    border-radius: 7px;
+    color: white;
+    font-weight: 700;
+    font-size: 11px;
+    transition: .2s;
+    min-height: 41px;
+}
+
+.filter-btn:hover {
+    opacity: .9;
+    transform: translateY(-2px);
+}
+
+.date-btn { background: #347bc5; }
+.day-btn { background: #7956c8; }
+.all-btn { background: #16845b; }
+
+#filterMessage {
+    color: #78869a;
+    font-size: 11px;
+    margin-top: 15px;
+}
+
+/* FILTER SUMMARY */
+
+.filter-summary {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 13px;
+    margin-bottom: 20px;
+}
+
+.summary-box {
+    padding: 16px;
+    background: #f8f9fc;
+    border: 1px solid #e9edf3;
+    border-radius: 9px;
+    transition: .25s;
+}
+
+.summary-box:hover {
+    border-color: #d6bd91;
+    transform: translateY(-3px);
+}
+
+.summary-box p {
+    color: #78869a;
+    font-size: 10px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.summary-box h3 {
+    color: var(--navy);
+    font-size: 23px;
+}
+
+/* MODAL */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(5,14,27,.72);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.modal-content {
+    background: white;
+    padding: 28px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 550px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 70px rgba(0,0,0,.3);
+    animation: modalIn .25s ease both;
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px) scale(.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-content h2 {
+    color: var(--navy);
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 20px;
+    font-size: 23px;
+}
+
+.modal-content label {
+    display: block;
+    margin: 13px 0 7px;
+    font-weight: 700;
+    font-size: 11px;
+    color: #536176;
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dce2ea;
+    border-radius: 7px;
+    font-size: 12px;
+    outline: none;
+    transition: .2s;
+    background: #fcfcfd;
+}
+
+.modal-content input:focus,
+.modal-content select:focus,
+.modal-content textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,166,109,.12);
+}
+
+.modal-content textarea {
+    resize: vertical;
+    min-height: 75px;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.form-buttons button {
+    flex: 1;
+    padding: 13px;
+    border: none;
+    border-radius: 7px;
+    color: white;
+    font-weight: 700;
+    font-size: 12px;
+    transition: .2s;
+}
+
+.form-buttons button:hover {
+    transform: translateY(-2px);
+}
+
+.save-btn { background: #16845b; }
+.close-btn { background: #6b7789; }
+
+/* MOBILE MENU */
+
+.menu-toggle {
+    display: none;
+    background: var(--navy);
+    color: white;
+    border: none;
+    border-radius: 7px;
+    width: 39px;
+    height: 39px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slowFloat {
+    from { transform: translateY(0) rotate(0deg); }
+    to { transform: translateY(20px) rotate(12deg); }
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px) {
+    .cards {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+}
+
+@media(max-width:800px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: .3s;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .main {
+        margin-left: 0;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    header {
+        padding: 0 18px;
+        gap: 12px;
+    }
+
+    .container {
+        padding: 23px 18px 40px;
+    }
+
+    .header-title {
+        flex: 1;
+    }
+}
+
+@media(max-width:600px) {
+    header {
+        height: auto;
+        min-height: 75px;
+        flex-wrap: wrap;
+        padding: 12px;
+    }
+
+    .header-title h1 {
+        font-size: 19px;
+    }
+
+    .header-title p {
+        font-size: 9px;
+    }
+
+    .header-right {
+        gap: 9px;
+    }
+
+    #adminName {
+        font-size: 10px;
+    }
+
+    .admin-avatar {
+        width: 33px;
+        height: 33px;
+    }
+
+    .logout-btn {
+        padding: 9px 11px;
+        font-size: 10px;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        gap: 10px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .card h1 {
+        font-size: 25px;
+    }
+
+    .card h3 {
+        font-size: 10px;
+    }
+
+    .card-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+
+    .welcome-banner {
+        padding: 23px;
+    }
+
+    .welcome-banner h2 {
+        font-size: 22px;
+    }
+
+    .section {
+        padding: 17px;
+    }
+
+    .section-heading h2 {
+        font-size: 19px;
+    }
+
+    .filter-group {
+        min-width: 100%;
+    }
+
+    .filter-btn {
+        width: 100%;
+    }
+
+    .filter-summary {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+
+    .form-buttons {
+        flex-direction: column;
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+
+/* ===== DASHBOARD TEXT SIZE IMPROVEMENTS ===== */
+
+/* Main heading */
+.header-title h1 {
+    font-size: 29px;
+}
+
+.header-title p {
+    font-size: 14px;
+}
+
+/* Sidebar */
+.brand h2 {
+    font-size: 23px;
+}
+
+.nav-links a {
+    font-size: 15px;
+    padding: 15px 14px;
+}
+
+.sidebar-label {
+    font-size: 12px;
+}
+
+/* Welcome section */
+.welcome-banner h2 {
+    font-size: 34px;
+}
+
+.welcome-banner p {
+    font-size: 15px;
+}
+
+.welcome-tag {
+    font-size: 12px;
+}
+
+/* Dashboard cards */
+.card h3 {
+    font-size: 15px;
+}
+
+.card h1 {
+    font-size: 36px;
+}
+
+.card-note {
+    font-size: 12px;
+}
+
+/* Section headings */
+.section-heading h2 {
+    font-size: 26px;
+}
+
+.section-heading p {
+    font-size: 14px;
+}
+
+/* Buttons */
+.primary-btn,
+.logout-btn {
+    font-size: 14px;
+    padding: 13px 20px;
+}
+
+.action-btn {
+    font-size: 12px;
+    padding: 9px 13px;
+}
+
+/* Table text */
+th {
+    font-size: 12px;
+    padding: 16px 14px;
+}
+
+td {
+    font-size: 14px;
+    padding: 17px 14px;
+}
+
+/* Date filter */
+.filter-group label {
+    font-size: 13px;
+}
+
+.filter-group input,
+.filter-group select {
+    font-size: 14px;
+}
+
+.filter-btn {
+    font-size: 13px;
+}
+
+.filter-title {
+    font-size: 14px;
+}
+
+#filterMessage {
+    font-size: 13px;
+}
+
+/* Summary boxes */
+.summary-box p {
+    font-size: 13px;
+}
+
+.summary-box h3 {
+    font-size: 27px;
+}
+
+/* Admin name */
+#adminName {
+    font-size: 14px;
+}
+
+.admin-role {
+    font-size: 12px;
+}
+
+/* Modal */
+.modal-content h2 {
+    font-size: 27px;
+}
+
+.modal-content label {
+    font-size: 13px;
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+    font-size: 14px;
+}
+
+.form-buttons button {
+    font-size: 14px;
+}
+
+/* Mobile */
+@media(max-width:600px) {
+    .header-title h1 {
+        font-size: 22px;
+    }
+
+    .welcome-banner h2 {
+        font-size: 25px;
+    }
+
+    .section-heading h2 {
+        font-size: 21px;
+    }
+
+    .card h1 {
+        font-size: 29px;
+    }
+
+    .card h3 {
+        font-size: 12px;
+    }
+
+    td {
+        font-size: 13px;
+    }
+
+    th {
+        font-size: 11px;
+    }
+}
+
+
+/* ===== PREMIUM LUXURY DASHBOARD BACKGROUND ===== */
+
+body {
+    background:
+        linear-gradient(
+            120deg,
+            rgba(10, 23, 42, 0.82),
+            rgba(16, 29, 53, 0.72)
+        ),
+        url("https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=2000&q=90");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+/* Main dashboard background */
+.main {
+    background: transparent;
+}
+
+/* Premium transparent header */
+header {
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(18px);
+}
+
+/* Welcome banner */
+.welcome-banner {
+    border: 1px solid rgba(229, 201, 148, 0.35);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Premium dashboard cards */
+.card {
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(229, 201, 148, 0.35);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16);
+}
+
+/* Premium sections */
+.section {
+    background: rgba(255, 255, 255, 0.97);
+    border: 1px solid rgba(229, 201, 148, 0.35);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.16);
+}
+
+/* Filter panel */
+.filter-panel {
+    background: linear-gradient(
+        120deg,
+        #ffffff,
+        #f8f2e8
+    );
+}
+
+/* Summary boxes */
+.summary-box {
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #f8f3e9
+    );
+    border: 1px solid #e8d7b7;
+}
+
+/* Premium hover effect */
+.card:hover,
+.section:hover {
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.20);
+}
+
+/* Mobile background */
+@media(max-width: 800px) {
+    body {
+        background-attachment: scroll;
+    }
+}
+
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+        <h2>GRAND HORIZON</h2>
+        <p>HOTEL MANAGEMENT</p>
+    </div>
+
+    <div class="sidebar-label">MAIN MENU</div>
+
+    <nav class="nav-links">
+        <a href="#overview" class="active"><span>▦</span> Dashboard</a>
+        <a href="#rooms"><span>▣</span> Room Management</a>
+        <a href="#bookings"><span>▤</span> Booking Management</a>
+    </nav>
+
+    <div class="sidebar-label">ACCOUNT</div>
+
+    <nav class="nav-links">
+        <a href="/index.html"><span>⌂</span> View Hotel Website</a>
+        <a href="#" onclick="adminLogout(); return false;"><span>⇥</span> Logout</a>
+    </nav>
+
+    <div class="sidebar-bottom">
+        <p>✦ Grand Horizon Hotel</p>
+        <p>Luxury · Comfort · Excellence</p>
+        <p style="margin-top:10px;">© 2026 Grand Horizon</p>
+    </div>
+
+</aside>
+
+<!-- MAIN CONTENT -->
+
+<main class="main">
+
+<header>
+
+    <button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()">☰</button>
+
+    <div class="header-title">
+        <h1>Admin Dashboard</h1>
+        <p>Manage your hotel operations</p>
+    </div>
+
+    <div class="header-right">
+
+        <div class="admin-profile">
+            <div class="admin-avatar">A</div>
+            <div>
+                <div id="adminName">Administrator</div>
+                <div class="admin-role">Hotel Administrator</div>
+            </div>
+        </div>
+
+        <button class="logout-btn" onclick="adminLogout()">Logout ↗</button>
+
+    </div>
+
+</header>
+
+<div class="container">
+
+    <!-- WELCOME -->
+
+    <section class="welcome-banner" id="overview">
+        <span class="welcome-tag">WELCOME TO YOUR CONTROL CENTER</span>
+        <h2>Good Day, Administrator!</h2>
+        <p>Manage rooms, monitor reservations and keep your hotel running smoothly.</p>
+    </section>
+
+    <!-- DASHBOARD CARDS -->
+
+    <div class="cards">
+
+        <div class="card" style="--icon-bg:#f1e8d8;--icon-color:#a77c3e;--card-glow:rgba(201,166,109,.13)">
+            <div class="card-top">
+                <h3>Total Rooms</h3>
+                <div class="card-icon">▣</div>
+            </div>
+            <h1 id="totalRooms">0</h1>
+            <p class="card-note">Rooms registered in the hotel</p>
+        </div>
+
+        <div class="card" style="--icon-bg:#e1f4eb;--icon-color:#16845b;--card-glow:rgba(22,132,91,.12)">
+            <div class="card-top">
+                <h3>Available Rooms</h3>
+                <div class="card-icon">✓</div>
+            </div>
+            <h1 id="availableRooms">0</h1>
+            <p class="card-note">Rooms marked as available</p>
+        </div>
+
+        <div class="card" style="--icon-bg:#e5effb;--icon-color:#347bc5;--card-glow:rgba(52,123,197,.12)">
+            <div class="card-top">
+                <h3>Total Bookings</h3>
+                <div class="card-icon">▤</div>
+            </div>
+            <h1 id="totalBookings">0</h1>
+            <p class="card-note">All hotel reservations</p>
+        </div>
+
+        <div class="card" style="--icon-bg:#fce9e8;--icon-color:#d94b58;--card-glow:rgba(217,75,88,.12)">
+            <div class="card-top">
+                <h3>Pending Bookings</h3>
+                <div class="card-icon">◷</div>
+            </div>
+            <h1 id="pendingBookings">0</h1>
+            <p class="card-note">Bookings waiting for confirmation</p>
+        </div>
+
+    </div>
+
+    <!-- ROOM MANAGEMENT -->
+
+    <section class="section" id="rooms">
+
+        <div class="section-heading">
+            <div>
+                <h2>Room Management</h2>
+                <p>Manage your hotel rooms, prices and availability.</p>
+            </div>
+
+            <button class="primary-btn" onclick="openAddRoomModal()">
+                + Add New Room
+            </button>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Room No.</th>
+                        <th>Room Type</th>
+                        <th>Price</th>
+                        <th>Price Type</th>
+                        <th>Capacity</th>
+                        <th>Availability</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="roomTable">
+                    <tr><td colspan="8">Loading rooms...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+    <!-- BOOKING MANAGEMENT -->
+
+    <section class="section" id="bookings">
+
+        <div class="section-heading">
+            <div>
+                <h2>Booking Management</h2>
+                <p>View and manage hotel reservations by date or weekday.</p>
+            </div>
+        </div>
+
+        <!-- DATE AND DAY FILTERS -->
+
+        <div class="filter-panel">
+
+            <div class="filter-title">⌕ &nbsp; FIND BOOKINGS</div>
+
+            <div class="filter-row">
+
+                <div class="filter-group">
+                    <label for="bookingDate">Select Booking Date</label>
+                    <input type="date" id="bookingDate">
+                </div>
+
+                <button class="filter-btn date-btn" onclick="filterBookingsByDate()">
+                    Search Date
+                </button>
+
+                <div class="filter-group">
+                    <label for="bookingDay">Select Weekday</label>
+                    <select id="bookingDay">
+                        <option value="">Choose Day</option>
+                        <option value="MONDAY">Monday</option>
+                        <option value="TUESDAY">Tuesday</option>
+                        <option value="WEDNESDAY">Wednesday</option>
+                        <option value="THURSDAY">Thursday</option>
+                        <option value="FRIDAY">Friday</option>
+                        <option value="SATURDAY">Saturday</option>
+                        <option value="SUNDAY">Sunday</option>
+                    </select>
+                </div>
+
+                <button class="filter-btn day-btn" onclick="filterBookingsByDay()">
+                    Search Day
+                </button>
+
+                <button class="filter-btn all-btn" onclick="showAllBookings()">
+                    All Bookings
+                </button>
+
+            </div>
+
+            <p id="filterMessage">Showing all bookings.</p>
+
+        </div>
+
+        <!-- FILTER SUMMARY -->
+
+        <div class="filter-summary">
+
+            <div class="summary-box">
+                <p>Filtered Bookings</p>
+                <h3 id="filteredTotal">0</h3>
+            </div>
+
+            <div class="summary-box">
+                <p>Pending</p>
+                <h3 id="filteredPending">0</h3>
+            </div>
+
+            <div class="summary-box">
+                <p>Confirmed</p>
+                <h3 id="filteredConfirmed">0</h3>
+            </div>
+
+            <div class="summary-box">
+                <p>Cancelled</p>
+                <h3 id="filteredCancelled">0</h3>
+            </div>
+
+        </div>
+
+        <!-- BOOKING TABLE -->
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Email</th>
+                        <th>Room</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="bookingTable">
+                    <tr><td colspan="9">Loading bookings...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+</div>
+</main>
+
+<!-- ROOM MODAL -->
+
+<div class="modal" id="roomModal">
+
+    <div class="modal-content">
+
+        <h2 id="modalTitle">Add New Room</h2>
+
+        <form id="roomForm">
+
+            <input type="hidden" id="roomId">
+
+            <label>Room Number</label>
+            <input type="text" id="roomNumber" required>
+
+            <label>Room Type</label>
+			<select id="roomType" name="roomType" required>
+			    <option value="">Select Room Type</option>
+			    <option value="AC">AC Room</option>
+			    <option value="NON-AC">Non-AC Room</option>
+			    <option value="SUITE">Suite Room</option>
+			    <option value="HOURLY-AC">Hourly AC Room</option>
+			    <option value="HOURLY-NON-AC">Hourly Non-AC Room</option>
+			</select>
+            <label>Price</label>
+            <input type="number" id="pricePerNight"
+                   min="0" step="0.01" required>
+
+            <label>Price Type</label>
+            <select id="priceType" required>
+                <option value="NIGHT">Per Night</option>
+                <option value="HOUR">Per Hour</option>
+            </select>
+
+            <label>Capacity</label>
+            <input type="number" id="capacity" min="1" required>
+
+            <label>Image URL</label>
+            <input type="url" id="imageUrl"
+                   placeholder="https://example.com/image.jpg">
+
+            <label>Description</label>
+            <textarea id="description"></textarea>
+
+            <label>Availability</label>
+            <select id="available">
+                <option value="true">Available</option>
+                <option value="false">Not Available</option>
+            </select>
+
+            <div class="form-buttons">
+                <button type="submit" class="save-btn">Save Room</button>
+                <button type="button" class="close-btn" onclick="closeRoomModal()">Close</button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+const API = {
+    rooms: "/api/rooms",
+    dashboard: "/api/admin/dashboard",
+    bookings: "/api/admin/bookings",
+    bookingsByDate: "/api/admin/bookings/date",
+    bookingsByDay: "/api/admin/bookings/day",
+    logout: "/api/admin/logout"
+};
+
+let rooms = [];
+let bookings = [];
+
+/* SIDEBAR */
+
+function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("open");
+}
+
+document.querySelectorAll(".nav-links a[href^='#']").forEach(link => {
+    link.addEventListener("click", function() {
+        document.querySelectorAll(".nav-links a").forEach(item =>
+            item.classList.remove("active")
+        );
+        this.classList.add("active");
+
+        if (window.innerWidth <= 800) {
+            document.getElementById("sidebar").classList.remove("open");
+        }
+    });
+});
+
+/* COMMON API FUNCTION */
+
+async function apiRequest(url, options = {}) {
+
+    const response = await fetch(url, {
+        ...options,
+        credentials: "same-origin",
+        headers: {
+            ...(options.headers || {})
+        }
+    });
+
+    if (response.status === 401 || response.status === 403) {
+        alert("Your admin session has expired. Please login again.");
+        window.location.replace("/admin-login.html");
+        throw new Error("Unauthorized");
+    }
+
+    if (!response.ok) {
+        const message = await response.text();
+        throw new Error(message || "Request failed");
+    }
+
+    if (response.status === 204) {
+        return null;
+    }
+
+    const text = await response.text();
+
+    if (!text) {
+        return null;
+    }
+
+    try {
+        return JSON.parse(text);
+    } catch {
+        return text;
+    }
+}
+
+/* CHECK ADMIN SESSION */
+
+async function checkAdminSession() {
+
+    try {
+
+        const data = await apiRequest(API.dashboard);
+
+        if (data && data.username) {
+            document.getElementById("adminName").textContent =
+                "Welcome, " + data.username;
+        } else if (data && data.adminUsername) {
+            document.getElementById("adminName").textContent =
+                "Welcome, " + data.adminUsername;
+        }
+
+    } catch (error) {
+        console.error("Session check:", error);
+    }
+}
+
+/* LOAD ROOMS */
+
+async function loadRooms() {
+
+    try {
+
+        rooms = await apiRequest(API.rooms) || [];
+
+        document.getElementById("totalRooms").textContent =
+            rooms.length;
+
+        document.getElementById("availableRooms").textContent =
+            rooms.filter(room => room.available === true).length;
+
+        const table = document.getElementById("roomTable");
+
+        if (rooms.length === 0) {
+            table.innerHTML =
+                '<tr><td colspan="8">No rooms found</td></tr>';
+            return;
+        }
+
+        table.innerHTML = rooms.map(room => `
+            <tr>
+                <td>
+                    ${room.imageUrl
+                        ? `<img src="${escapeHTML(room.imageUrl)}" alt="Room">`
+                        : "No Image"}
+                </td>
+
+                <td>${escapeHTML(room.roomNumber)}</td>
+                <td>${escapeHTML(room.roomType)}</td>
+                <td>₹${Number(room.pricePerNight || 0).toFixed(2)}</td>
+                <td>${escapeHTML(room.priceType || "NIGHT")}</td>
+                <td>${room.capacity}</td>
+
+                <td style="color:${room.available ? 'green' : 'red'}">
+                    ${room.available ? "Available" : "Not Available"}
+                </td>
+
+                <td>
+                    <button class="action-btn edit-btn"
+                        onclick="editRoom(${room.id})">Edit</button>
+
+                    <button class="action-btn delete-btn"
+                        onclick="deleteRoom(${room.id})">Delete</button>
+                </td>
+            </tr>
+        `).join("");
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("roomTable").innerHTML =
+            '<tr><td colspan="8">Unable to load rooms</td></tr>';
+    }
+}
+
+/* OPEN ADD ROOM */
+
+function openAddRoomModal() {
+
+    document.getElementById("roomForm").reset();
+    document.getElementById("roomId").value = "";
+    document.getElementById("modalTitle").textContent = "Add New Room";
+
+    document.getElementById("roomModal").style.display = "flex";
+}
+
+/* CLOSE MODAL */
+
+function closeRoomModal() {
+    document.getElementById("roomModal").style.display = "none";
+}
+
+/* EDIT ROOM */
+
+function editRoom(id) {
+
+    const room = rooms.find(r => r.id === id);
+
+    if (!room) {
+        alert("Room not found");
+        return;
+    }
+
+    document.getElementById("roomId").value = room.id;
+    document.getElementById("roomNumber").value = room.roomNumber || "";
+    document.getElementById("roomType").value = room.roomType || "";
+
+    document.getElementById("pricePerNight").value =
+        room.pricePerNight || 0;
+
+    document.getElementById("priceType").value =
+        room.priceType || "NIGHT";
+
+    document.getElementById("capacity").value = room.capacity || 1;
+    document.getElementById("imageUrl").value = room.imageUrl || "";
+
+    document.getElementById("description").value =
+        room.description || "";
+
+    document.getElementById("available").value =
+        String(room.available);
+
+    document.getElementById("modalTitle").textContent = "Edit Room";
+    document.getElementById("roomModal").style.display = "flex";
+}
+
+/* SAVE ROOM */
+
+document.getElementById("roomForm").addEventListener("submit",
+    async function(event) {
+
+        event.preventDefault();
+
+        const id = document.getElementById("roomId").value;
+
+        const room = {
+            roomNumber: document.getElementById("roomNumber").value,
+            roomType: document.getElementById("roomType").value,
+
+            pricePerNight: Number(
+                document.getElementById("pricePerNight").value
+            ),
+
+            priceType: document.getElementById("priceType").value,
+
+            capacity: Number(
+                document.getElementById("capacity").value
+            ),
+
+            imageUrl: document.getElementById("imageUrl").value,
+
+            description: document.getElementById("description").value,
+
+            available:
+                document.getElementById("available").value === "true"
+        };
+
+        try {
+
+            if (id) {
+
+                await apiRequest(`${API.rooms}/${id}`, {
+                    method: "PUT",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(room)
+                });
+
+                alert("Room updated successfully!");
+
+            } else {
+
+                await apiRequest(API.rooms, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(room)
+                });
+
+                alert("Room added successfully!");
+            }
+
+            closeRoomModal();
+            loadRooms();
+
+        } catch (error) {
+
+            console.error(error);
+            alert("Room save failed: " + error.message);
+        }
+    }
+);
+
+/* DELETE ROOM */
+
+async function deleteRoom(id) {
+
+    if (!confirm("Are you sure you want to delete this room?")) {
+        return;
+    }
+
+    try {
+
+        await apiRequest(`${API.rooms}/${id}`, {
+            method: "DELETE"
+        });
+
+        alert("Room deleted successfully!");
+        loadRooms();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Room could not be deleted. It may have existing bookings. Try marking it unavailable instead.");
+    }
+}
+
+/* UPDATE BOOKING SUMMARY */
+
+function updateBookingSummary() {
+
+    const pending = bookings.filter(b =>
+        String(b.status).toUpperCase() === "PENDING"
+    ).length;
+
+    const confirmed = bookings.filter(b =>
+        String(b.status).toUpperCase() === "CONFIRMED"
+    ).length;
+
+    const cancelled = bookings.filter(b =>
+        String(b.status).toUpperCase() === "CANCELLED"
+    ).length;
+
+    document.getElementById("totalBookings").textContent =
+        bookings.length;
+
+    document.getElementById("pendingBookings").textContent =
+        pending;
+
+    document.getElementById("filteredTotal").textContent =
+        bookings.length;
+
+    document.getElementById("filteredPending").textContent =
+        pending;
+
+    document.getElementById("filteredConfirmed").textContent =
+        confirmed;
+
+    document.getElementById("filteredCancelled").textContent =
+        cancelled;
+}
+
+/* DISPLAY BOOKINGS IN TABLE */
+
+function renderBookings() {
+
+    updateBookingSummary();
+
+    const table = document.getElementById("bookingTable");
+
+    if (!bookings || bookings.length === 0) {
+
+        table.innerHTML =
+            '<tr><td colspan="9">No bookings found for this selection.</td></tr>';
+
+        return;
+    }
+
+    table.innerHTML = bookings.map(booking => {
+
+        const roomNumber = booking.room
+            ? booking.room.roomNumber
+            : "-";
+
+        const status = String(booking.status || "").toUpperCase();
+
+        return `
+            <tr>
+                <td>${booking.id}</td>
+
+                <td>${escapeHTML(booking.customerName || "-")}</td>
+
+                <td>${escapeHTML(booking.customerEmail || "-")}</td>
+
+                <td>${escapeHTML(roomNumber)}</td>
+
+                <td>${escapeHTML(booking.checkInDate || "-")}</td>
+
+                <td>${escapeHTML(booking.checkOutDate || "-")}</td>
+
+                <td>₹${Number(booking.totalPrice || 0).toFixed(2)}</td>
+
+                <td class="status">${escapeHTML(status)}</td>
+
+                <td>
+                    ${status === "PENDING" ? `
+                        <button class="action-btn confirm-btn"
+                            onclick="confirmBooking(${booking.id})">
+                            Confirm
+                        </button>
+
+                        <button class="action-btn cancel-btn"
+                            onclick="cancelBooking(${booking.id})">
+                            Cancel
+                        </button>
+                    ` : status === "CONFIRMED" ? `
+                        <button class="action-btn cancel-btn"
+                            onclick="cancelBooking(${booking.id})">
+                            Cancel
+                        </button>
+                    ` : "-"}
+                </td>
+            </tr>
+        `;
+
+    }).join("");
+}
+
+/* LOAD ALL BOOKINGS */
+
+async function loadBookings() {
+
+    try {
+
+        bookings = await apiRequest(API.bookings) || [];
+
+        document.getElementById("filterMessage").textContent =
+            "Showing all bookings.";
+
+        renderBookings();
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("bookingTable").innerHTML =
+            '<tr><td colspan="9">Unable to load bookings</td></tr>';
+    }
+}
+
+/* FILTER BOOKINGS BY DATE */
+
+async function filterBookingsByDate() {
+
+    const date = document.getElementById("bookingDate").value;
+
+    if (!date) {
+        alert("Please select a booking date.");
+        return;
+    }
+
+    try {
+
+        document.getElementById("bookingTable").innerHTML =
+            '<tr><td colspan="9">Loading bookings...</td></tr>';
+
+        bookings = await apiRequest(
+            `${API.bookingsByDate}?date=${encodeURIComponent(date)}`
+        ) || [];
+
+        document.getElementById("filterMessage").textContent =
+            "Showing bookings for check-in date: " + date;
+
+        renderBookings();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Unable to filter bookings: " + error.message);
+    }
+}
+
+/* FILTER BOOKINGS BY WEEKDAY */
+
+async function filterBookingsByDay() {
+
+    const day = document.getElementById("bookingDay").value;
+
+    if (!day) {
+        alert("Please select a weekday.");
+        return;
+    }
+
+    try {
+
+        document.getElementById("bookingTable").innerHTML =
+            '<tr><td colspan="9">Loading bookings...</td></tr>';
+
+        bookings = await apiRequest(
+            `${API.bookingsByDay}?day=${encodeURIComponent(day)}`
+        ) || [];
+
+        const formattedDay =
+            day.charAt(0) + day.slice(1).toLowerCase();
+
+        document.getElementById("filterMessage").textContent =
+            "Showing bookings for every " + formattedDay +
+            " (all dates).";
+
+        renderBookings();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Unable to filter bookings: " + error.message);
+    }
+}
+
+/* SHOW ALL BOOKINGS */
+
+async function showAllBookings() {
+
+    document.getElementById("bookingDate").value = "";
+    document.getElementById("bookingDay").value = "";
+
+    await loadBookings();
+}
+
+/* CONFIRM BOOKING */
+
+async function confirmBooking(id) {
+
+    if (!confirm("Confirm this booking?")) {
+        return;
+    }
+
+    try {
+
+        await apiRequest(
+            `/api/admin/bookings/confirm/${id}`,
+            {method: "PUT"}
+        );
+
+        alert("Booking confirmed!");
+
+        refreshCurrentBookingView();
+
+    } catch (error) {
+
+        alert("Booking confirmation failed: " + error.message);
+    }
+}
+
+/* CANCEL BOOKING */
+
+async function cancelBooking(id) {
+
+    if (!confirm("Cancel this booking?")) {
+        return;
+    }
+
+    try {
+
+        await apiRequest(
+            `/api/admin/bookings/cancel/${id}`,
+            {method: "PUT"}
+        );
+
+        alert("Booking cancelled!");
+
+        refreshCurrentBookingView();
+
+    } catch (error) {
+
+        alert("Booking cancellation failed: " + error.message);
+    }
+}
+
+/* REFRESH CURRENT FILTER AFTER ACTION */
+
+async function refreshCurrentBookingView() {
+
+    const date = document.getElementById("bookingDate").value;
+    const day = document.getElementById("bookingDay").value;
+
+    if (date) {
+        await filterBookingsByDate();
+    } else if (day) {
+        await filterBookingsByDay();
+    } else {
+        await loadBookings();
+    }
+}
+
+/* LOGOUT FUNCTION */
+
+async function adminLogout() {
+
+    if (!confirm("Are you sure you want to logout?")) {
+        return;
+    }
+
+    try {
+
+        await apiRequest(API.logout, {
+            method: "POST"
+        });
+
+        window.location.replace("/admin-login.html");
+
+    } catch (error) {
+
+        console.error("Logout error:", error);
+
+        if (error.message !== "Unauthorized") {
+            alert("Logout failed: " + error.message);
+        }
+    }
+}
+
+/* SAFE HTML TEXT */
+
+function escapeHTML(value) {
+
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+}
+
+/* INITIAL LOAD */
+
+async function loadDashboard() {
+
+    await checkAdminSession();
+
+    await Promise.all([
+        loadRooms(),
+        loadBookings()
+    ]);
+}
+
+loadDashboard();
+
+</script>
+
+</body>
+</html>
